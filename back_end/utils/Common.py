@@ -1,8 +1,13 @@
 from datetime import timedelta
+import datetime
 from threading import Lock
-from jwt import encode
+from typing import Optional, Set
+from fastapi import HTTPException, status
+from jwt import encode, decode
+import jwt
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+
 
 class SingletonClass(type):
     _instance = None
@@ -17,13 +22,44 @@ class SingletonClass(type):
 
 
 class Token():
-    def createToken(data:dict,secret_key:str,algorithm,Op):
-        data_to_encoder = data.copy()
-        encode_jwt = encode(payload=data,key=secret_key,algorithm=algorithm,)
+    ACCESS_TOKEN_EXPIRE_MINUTES = 30
+    KEY = "test"
+    ALGORITHM = "HS256"
 
-        if expires_delta:
-            expire = datetime.utcnow() + expires_delta
+    def createToken(payload: dict, secret_key: Optional[str], algorithm: Optional[str], expires: Optional[int]) -> str:
+        data_to_encoder = payload.copy()
+
+        if secret_key is None:
+            secret_key = Token.KEY
+
+        if algorithm is None:
+            algorithm = Token.ALGORITHM
+
+        if expires:
+            expires = datetime.utcnow() + expires
         else:
-            expire = datetime.utcnow() + timedelta(minutes=15)
-        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+            expires = datetime.utcnow() + timedelta(minutes=Token.ACCESS_TOKEN_EXPIRE_MINUTES)
+        data_to_encoder.update({"exp": expires})
+        jwt_encode: str = encode(data_to_encoder, secret_key, algorithm)
+        return jwt_encode
+
+    def verifyToken(jwt_encode: str, secret_key: Optional[str], algorithm: Optional[str]) -> tuple[bool,Optional[object]]:
+
+
+        if secret_key is None:
+            secret_key = Token.KEY
+
+        if algorithm is None:
+            algorithm = Token.ALGORITHM
+
+        try:
+            payload = decode(jwt_encode, secret_key, algorithms=algorithm)
+            return (True,payload)
+        except jwt.ExpiredSignatureError:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Token expired")
+        except jwt.InvalidTokenError:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Token invalid")
+
 
