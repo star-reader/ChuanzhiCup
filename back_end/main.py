@@ -13,7 +13,9 @@ class User(BaseModel):
     token: str | None = None
     
 
-app = FastAPI()
+app = FastAPI(
+    dependencies=[Depends()]
+)
 
 @app.post("/api/login")
 def loginApi():

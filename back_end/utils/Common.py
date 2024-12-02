@@ -26,31 +26,33 @@ class Token():
     KEY = "test"
     ALGORITHM = "HS256"
 
-    def createToken(payload: dict, secret_key: Optional[str], algorithm: Optional[str], expires: Optional[int]) -> str:
+    @classmethod
+    def createToken(cls,payload: dict, secret_key: Optional[str], algorithm: Optional[str], expires: Optional[int]) -> str:
         data_to_encoder = payload.copy()
 
         if secret_key is None:
-            secret_key = Token.KEY
+            secret_key = cls.KEY
 
         if algorithm is None:
-            algorithm = Token.ALGORITHM
+            algorithm = cls.ALGORITHM
 
         if expires:
             expires = datetime.utcnow() + expires
         else:
-            expires = datetime.utcnow() + timedelta(minutes=Token.ACCESS_TOKEN_EXPIRE_MINUTES)
+            expires = datetime.utcnow() + timedelta(minutes=cls.ACCESS_TOKEN_EXPIRE_MINUTES)
         data_to_encoder.update({"exp": expires})
         jwt_encode: str = encode(data_to_encoder, secret_key, algorithm)
         return jwt_encode
-
-    def verifyToken(jwt_encode: str, secret_key: Optional[str], algorithm: Optional[str]) -> tuple[bool,Optional[object]]:
+    
+    @classmethod
+    def verifyToken(cls,jwt_encode: str, secret_key: Optional[str], algorithm: Optional[str]) -> tuple[bool,Optional[object]]:
 
 
         if secret_key is None:
-            secret_key = Token.KEY
+            secret_key = cls.KEY
 
         if algorithm is None:
-            algorithm = Token.ALGORITHM
+            algorithm = cls.ALGORITHM
 
         try:
             payload = decode(jwt_encode, secret_key, algorithms=algorithm)
