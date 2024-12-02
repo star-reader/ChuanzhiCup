@@ -1,5 +1,5 @@
-from typing import List, Optional, Any, Type
-from sqlalchemy import DateTime, Engine, ForeignKey, String, create_engine
+from typing import List, Optional, Any, Type, Union
+from sqlalchemy import DateTime, Engine, ForeignKey, Integer, String, create_engine
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import mapped_column, Mapped, relationship
@@ -10,7 +10,6 @@ from Common import SingletonClass
 DB_URL = ""
 
 
-
 # SQLAlchemy User model
 class Base(DeclarativeBase):
     pass
@@ -18,8 +17,18 @@ class Base(DeclarativeBase):
 
 class Item(Base):
     __tablename__ = "items"
-    id: Mapped[int] = mapped_column(primary_key=True,index=True,autoincrement=True)
-    name:Mapped[str] = mapped_column(String(50),nullable=False)
+    id: Mapped[int] = mapped_column(
+        primary_key=True, index=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(50), nullable=False)
+    tags: Mapped[str] = mapped_column(String)
+    price: Mapped[int] = mapped_column(Integer, nullable=False)
+    description: Mapped[str] = mapped_column(String)
+    image: Mapped[str] = mapped_column(String)
+    createAt: Mapped[str] = mapped_column(String)
+    fresh_level: Mapped[Union[String | Integer]] = mapped_column(String)
+    period: Mapped[str] = mapped_column(String)
+    ranking: Mapped[Integer] = mapped_column(Integer)
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -27,20 +36,24 @@ class User(Base):
         primary_key=True, index=True, autoincrement=True)
     username: Mapped[str] = mapped_column(
         String(50), unique=True, nullable=False)
-    password = mapped_column(String(100), nullable=False)  # 存储加密后的密码
+    avator: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     email = mapped_column(String(100), unique=True)
-    created_at = mapped_column(DateTime)
-    updated_at = mapped_column(DateTime)
+    bio: Mapped[str] = mapped_column(String,nullable=True)
     token: Mapped["Token"] = relationship(back_populates="user")
-    chart: Mapped[Optional[List["Item"]]] = relationship(back_populates="")
+    authorizationcode: Mapped[Optional[str]] = mapped_column(String,nullable=True)
+    password = mapped_column(String(100), nullable=False)  # 存储加密后的密码
+    created_at = mapped_column(DateTime)
+
+    # chart: Mapped[Optional[List["Item"]]] = relationship(back_populates="")
 
     def __format__(self, format_spec: str) -> str:
-        
+
         return super().__format__(format_spec)
-    
 
     def __repr__(self):
         return f"User<id={self.id},username={self.username},password={self.password},email={self.email}>"
+
+
 class Token(Base):
     __tablename__ = 'tokens'
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -77,7 +90,8 @@ class DBHelper(metaclass=SingletonClass):
         session = self.SessionLocal()
         try:
             # 根据键值查找记录
-            record = session.query(table).filter(getattr(table, key) == key_value).first()
+            record = session.query(table).filter(
+                getattr(table, key) == key_value).first()
             if record:
                 for attr, value in updates.items():
                     setattr(record, attr, value)  # 更新记录的属性
@@ -94,7 +108,8 @@ class DBHelper(metaclass=SingletonClass):
         session = self.SessionLocal()
         try:
             # 根据键值查找记录
-            record = session.query(table).filter(getattr(table, key) == key_value).first()
+            record = session.query(table).filter(
+                getattr(table, key) == key_value).first()
             if record:
                 session.delete(record)  # 删除记录
                 session.commit()  # 提交更改
@@ -107,16 +122,14 @@ class DBHelper(metaclass=SingletonClass):
             session.close()  # 关闭会话
 
 
-
 if __name__ == "__main__":
     DB_URL = "sqlite:///test.db"
-    helper:DBHelper = DBHelper()
-    helper2:DBHelper = DBHelper()
-    bob = User(username="Bob",password="123")
-    #test insert
+    helper: DBHelper = DBHelper()
+    helper2: DBHelper = DBHelper()
+    bob = User(username="Bob", password="123")
+    # test insert
     helper.insert(bob)
-    print(helper.select(User,username="Bob"))
-    helper2.update(User,"username","Bob",password="456",email="1233@qq.com")
-    print(helper.select(User,username="Bob"))
-    helper.deleteRecord(User,"id",1)
-
+    print(helper.select(User, username="Bob"))
+    helper2.update(User, "username", "Bob", password="456", email="1233@qq.com")
+    print(helper.select(User, username="Bob"))
+    helper.deleteRecord(User, "id", 1)
