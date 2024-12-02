@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import ConsumerDistributor from '../layout/ConsumerDistributor.vue'
 import CustomerLogin from '../layout/CustomerLogin.vue'
 import DistributorLogin from '../layout/DistributorLogin.vue'
+import ProductList from '../components/ProductManagement/ProductList.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/distributor-login',
     name: 'DistributorLogin',
     component: DistributorLogin,
+  },
+  {
+    path: '/product-list',
+    name: 'ProductList',
+    component: ProductList,
   },
 ]
 
