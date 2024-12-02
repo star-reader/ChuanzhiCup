@@ -1,4 +1,4 @@
-from typing import List, Optional, Any
+from typing import List, Optional, Any, Type
 from sqlalchemy import DateTime, Engine, ForeignKey, String, create_engine
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -15,6 +15,12 @@ DB_URL = ""
 class Base(DeclarativeBase):
     pass
 
+
+class Item(Base):
+    __tablename__ = "items"
+    id: Mapped[int] = mapped_column(primary_key=True,index=True,autoincrement=True)
+    name:Mapped[str] = mapped_column(String(50),nullable=False)
+
 class User(Base):
     __tablename__ = 'users'
     id: Mapped[int] = mapped_column(
@@ -26,9 +32,15 @@ class User(Base):
     created_at = mapped_column(DateTime)
     updated_at = mapped_column(DateTime)
     token: Mapped["Token"] = relationship(back_populates="user")
+    chart: Mapped[Optional[List["Item"]]] = relationship(back_populates="")
+
+    def __format__(self, format_spec: str) -> str:
+        
+        return super().__format__(format_spec)
+    
 
     def __repr__(self):
-        return f"User<id={self.id},username={self.username},password={self.password}>"
+        return f"User<id={self.id},username={self.username},password={self.password},email={self.email}>"
 class Token(Base):
     __tablename__ = 'tokens'
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -54,14 +66,14 @@ class DBHelper(metaclass=SingletonClass):
         finally:
             session.close()  # 关闭会话
 
-    def select(self, table: Base, **filters) -> Optional[List[Base]]:
+    def select(self, table: Type[Base], **filters: Any) -> Optional[List[Base]]:
         session = self.SessionLocal()
         try:
             return session.query(table).filter_by(**filters).all()  # 根据过滤条件查找
         finally:
             session.close()  # 关闭会话
 
-    def update(self, table: Base, key: str, key_value: Any, **updates) -> None:
+    def update(self, table: Type[Base], key: str, key_value: Any, **updates: Any) -> None:
         session = self.SessionLocal()
         try:
             # 根据键值查找记录
@@ -78,7 +90,7 @@ class DBHelper(metaclass=SingletonClass):
         finally:
             session.close()  # 关闭会话
 
-    def deleteRecord(self, table: Base, key: str, key_value: Any) -> None:
+    def deleteRecord(self, table: Type[Base], key: str, key_value: Any) -> None:
         session = self.SessionLocal()
         try:
             # 根据键值查找记录
@@ -99,11 +111,12 @@ class DBHelper(metaclass=SingletonClass):
 if __name__ == "__main__":
     DB_URL = "sqlite:///test.db"
     helper:DBHelper = DBHelper()
+    helper2:DBHelper = DBHelper()
     bob = User(username="Bob",password="123")
     #test insert
     helper.insert(bob)
     print(helper.select(User,username="Bob"))
-    helper.update(User,"username","Bob",password="456")
+    helper2.update(User,"username","Bob",password="456",email="1233@qq.com")
     print(helper.select(User,username="Bob"))
     helper.deleteRecord(User,"id",1)
 
