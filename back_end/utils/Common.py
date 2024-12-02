@@ -4,7 +4,10 @@ from threading import Lock
 from typing import Optional, Set
 from fastapi import HTTPException, status
 from jwt import encode, decode
+
 import jwt
+from logging import warning
+
 
 
 
@@ -56,12 +59,8 @@ class Token():
 
         try:
             payload = decode(jwt_encode, secret_key, algorithms=algorithm)
-            return (True,payload)
-        except jwt.ExpiredSignatureError:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED, detail="Token expired")
-        except jwt.InvalidTokenError:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED, detail="Token invalid")
+            return True,payload
+        except jwt.InvalidTokenError or jwt.ExpiredSignatureError as e:
+            raise  e
 
 
