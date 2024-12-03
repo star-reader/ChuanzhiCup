@@ -9,7 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     ManageIndex: typeof import('./src/components/ProductManagement/ManageIndex.vue')['default']
     ProductDetail: typeof import('./src/components/ProductInfo/ProductDetail.vue')['default']
-    ProductList: typeof import('./src/components/ProductManagement/ProductList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VanButton: typeof import('vant/es')['Button']

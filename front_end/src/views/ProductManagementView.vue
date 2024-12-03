@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import ProductList from '../components/ProductManagement/ProductList.vue'; // Import the ProductList component
+import ProductList from '../components/ProductManagement/ManageIndex.vue'; // Import the ProductList component
 </script>
 
 <style scoped>
