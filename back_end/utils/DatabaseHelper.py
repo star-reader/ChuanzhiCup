@@ -7,7 +7,7 @@ from sqlalchemy.orm import DeclarativeBase
 
 from utils.Common import SingletonClass
 
-DB_URL = ""
+DB_URL = "sqlite:///test.db"
 
 
 # SQLAlchemy User model
@@ -82,7 +82,10 @@ class DBHelper(metaclass=SingletonClass):
     def select(self, table: Type[Base], **filters: Any) -> Optional[List[Base]]:
         session = self.SessionLocal()
         try:
-            return session.query(table).filter_by(**filters).all()  # 根据过滤条件查找
+            return session.query(table).filter_by(**filters).all()
+        except Exception as e:
+            raise e
+          # 根据过滤条件查找
         finally:
             session.close()  # 关闭会话
 

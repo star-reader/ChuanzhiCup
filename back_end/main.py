@@ -2,6 +2,8 @@ from fastapi import FastAPI ,Depends
 from pydantic import BaseModel
 from dependencies import checkToken
 
+from routers import user
+
 class Message(BaseModel):
     code: int  = 200
     msg: object | None = None
@@ -17,6 +19,8 @@ app = FastAPI(
     # dependencies=[Depends()]
 )
 
+
+app.include_router(user.router)
 
 
 
