@@ -4,6 +4,7 @@ import ConsumerDistributor from '../layout/ConsumerDistributor.vue'
 import CustomerLogin from '../layout/CustomerLogin.vue'
 import DistributorLogin from '../layout/DistributorLogin.vue'
 import ManageIndex from '../components/ProductManagement/ManageIndex.vue'
+import ProductForm from '@/layout/ProductForm.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/manage-index',
     name: 'ManageIndex',
     component: ManageIndex,
+  },
+  {
+    path: '/product-form',
+    name: 'ProductFrom',
+    component: ProductForm,
   },
 ]
 

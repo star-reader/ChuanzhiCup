@@ -24,7 +24,7 @@ class ItemAddRequest(BaseModel):
 async def getItem():
     pass
 
-@router.post("/update")
+@router.post("/update/{item_id}")
 async def updateItem(update_key:str,update_value:str):
     pass
 
