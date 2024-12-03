@@ -14,18 +14,12 @@ class User(BaseModel):
     
 
 app = FastAPI(
-    dependencies=[Depends()]
+    # dependencies=[Depends()]
 )
 
-@app.post("/api/login")
-def loginApi():
-    user = User(id=1,nick_name="a")
-    return user
 
-@app.post("/api/login")
-def loginApi():
-    user = User(id=1,nick_name="a")
-    return user
+
+
 
 @app.get('/')
 def root():

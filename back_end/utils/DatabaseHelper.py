@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy.orm import DeclarativeBase
 
-from Common import SingletonClass
+from utils.Common import SingletonClass
 
 DB_URL = ""
 
