@@ -7,9 +7,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CustomerIndex: typeof import('./src/components/Customer/CustomerIndex.vue')['default']
     ManageIndex: typeof import('./src/components/ProductManagement/ManageIndex.vue')['default']
     ManageItem: typeof import('./src/components/ProductManagement/ManageItem.vue')['default']
     ManageProduct: typeof import('./src/components/ProductManagement/ManageProduct.vue')['default']
+    OrderList: typeof import('./src/components/Orders/OrderList.vue')['default']
     ProductDetail: typeof import('./src/components/ProductInfo/ProductDetail.vue')['default']
     ProductList: typeof import('./src/components/ProductInfo/ProductList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -23,6 +25,7 @@ declare module 'vue' {
     VanIcon: typeof import('vant/es')['Icon']
     VanNavBar: typeof import('vant/es')['NavBar']
     VanPopup: typeof import('vant/es')['Popup']
+    VanSubmitBar: typeof import('vant/es')['SubmitBar']
     VanTag: typeof import('vant/es')['Tag']
     VanUploader: typeof import('vant/es')['Uploader']
   }

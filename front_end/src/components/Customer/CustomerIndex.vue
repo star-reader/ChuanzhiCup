@@ -1,22 +1,13 @@
 <template>
     <div class="product-list-container">
       <h2>
-        <van-icon name="manager" class="header-icon" /> 商品管理
+        <van-icon name="manager" class="header-icon" /> 商品信息
       </h2>
-      
       <van-card
         class="product-item"
-        @click="addProduct"
-        :title="'新增商品'"
-        :desc="'点击添加新商品'"
-        :thumb="FoodAdd"
-      />
-      
-      <van-card
-        class="product-item"
-        @click="manageProducts"
-        :title="'管理商品'"
-        :desc="'点击管理现有商品'"
+        @click="viewProducts"
+        :title="'查看商品'"
+        :desc="'浏览商品信息'"
         :thumb="FoodManage"
       />
       
@@ -35,16 +26,13 @@
 </template>
   
 <script lang="ts" setup>
-import FoodAdd from '@/assets/imgs/food-add.png';
 import FoodManage from '@/assets/imgs/food-manage.png';
 import OrderManage from '@/assets/imgs/order-manage.png';
 import router from '@/router';
   
-const addProduct = () => router.push('/product-form')
+const viewProducts = () => router.push('/product-list')
   
-const manageProducts = () => router.push('/manage-product')
-  
-const manageOrders = () => router.push('/order-list')
+const manageOrders = () => router.push('/order-list?from=customer')
   
 </script>
   

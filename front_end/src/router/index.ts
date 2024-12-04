@@ -1,54 +1,56 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ConsumerDistributor from '../layout/ConsumerDistributor.vue'
-import CustomerLogin from '../layout/CustomerLogin.vue'
-import DistributorLogin from '../layout/DistributorLogin.vue'
-import ManageIndex from '../components/ProductManagement/ManageIndex.vue'
-import ProductForm from '@/layout/ProductForm.vue'
-import ProductList from '../components/ProductInfo/ProductList.vue'
-import ManageProduct from '../components/ProductManagement/ManageProduct.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: () => import('../views/HomeView.vue'),
   },
   {
     path: '/login',
     name: 'Login',
-    component: ConsumerDistributor,
+    component: () => import('../layout/ConsumerDistributor.vue'),
   },
   {
     path: '/customer-login',
     name: 'CustomerLogin',
-    component: CustomerLogin,
+    component: () => import('../layout/CustomerLogin.vue'),
   },
   {
     path: '/distributor-login',
     name: 'DistributorLogin',
-    component: DistributorLogin,
+    component: () => import('../layout/DistributorLogin.vue'),
   },
   {
     path: '/manage-index',
     name: 'ManageIndex',
-    component: ManageIndex,
+    component: () => import('../components/ProductManagement/ManageIndex.vue'),
   },
   {
     path: '/product-form',
-    name: 'ProductFrom',
-    component: ProductForm,
+    name: 'ProductForm',
+    component: () => import('../views/ProductsFormView.vue'),
   },
   {
     path: '/product-list',
     name: 'ProductList',
-    component: ProductList,
+    component: () => import('../views/ProductManagementView.vue'),
   },
   {
     path: '/manage-product',
     name: 'ManageProduct',
-    component: ManageProduct,
+    component: () => import('../components/ProductManagement/ManageProduct.vue'),
   },
+  {
+    path: '/order-list',
+    name: 'OrderList',
+    component: () => import('../views/OrderView.vue'),
+  },
+  {
+    path: '/customer-index',
+    name: 'CustomerIndex',
+    component: () => import('../components/Customer/CustomerIndex.vue'),
+  }
 ]
 const router = createRouter({
   history: createWebHistory(),
