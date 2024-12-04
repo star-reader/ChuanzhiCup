@@ -6,10 +6,11 @@
 import { RouterView } from 'vue-router'
 </script>
 
-<style lang='less' scoped>
+<style>
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-x: hidden;
+  touch-action: none;
 }
 </style>

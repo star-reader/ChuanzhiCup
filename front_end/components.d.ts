@@ -8,7 +8,10 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ManageIndex: typeof import('./src/components/ProductManagement/ManageIndex.vue')['default']
+    ManageItem: typeof import('./src/components/ProductManagement/ManageItem.vue')['default']
+    ManageProduct: typeof import('./src/components/ProductManagement/ManageProduct.vue')['default']
     ProductDetail: typeof import('./src/components/ProductInfo/ProductDetail.vue')['default']
+    ProductList: typeof import('./src/components/ProductInfo/ProductList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VanButton: typeof import('vant/es')['Button']
@@ -18,7 +21,9 @@ declare module 'vue' {
     VanField: typeof import('vant/es')['Field']
     VanForm: typeof import('vant/es')['Form']
     VanIcon: typeof import('vant/es')['Icon']
+    VanNavBar: typeof import('vant/es')['NavBar']
     VanPopup: typeof import('vant/es')['Popup']
+    VanTag: typeof import('vant/es')['Tag']
     VanUploader: typeof import('vant/es')['Uploader']
   }
 }

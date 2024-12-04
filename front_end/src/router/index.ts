@@ -5,6 +5,8 @@ import CustomerLogin from '../layout/CustomerLogin.vue'
 import DistributorLogin from '../layout/DistributorLogin.vue'
 import ManageIndex from '../components/ProductManagement/ManageIndex.vue'
 import ProductForm from '@/layout/ProductForm.vue'
+import ProductList from '../components/ProductInfo/ProductList.vue'
+import ManageProduct from '../components/ProductManagement/ManageProduct.vue'
 
 const routes = [
   {
@@ -37,8 +39,17 @@ const routes = [
     name: 'ProductFrom',
     component: ProductForm,
   },
+  {
+    path: '/product-list',
+    name: 'ProductList',
+    component: ProductList,
+  },
+  {
+    path: '/manage-product',
+    name: 'ManageProduct',
+    component: ManageProduct,
+  },
 ]
-
 const router = createRouter({
   history: createWebHistory(),
   routes
