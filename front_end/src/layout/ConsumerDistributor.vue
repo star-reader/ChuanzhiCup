@@ -3,19 +3,25 @@
     <div class="column consumer">
       <van-icon name="user" class="icon" />
       <h2>消费者</h2>
-      <p>这里是消费者的相关信息。</p>
-      <button class="action-button">进入</button>
+      <p>购买商品、查询商品信息</p>
+      <button class="action-button" @click="loginRoute('customer-login')">进入</button>
     </div>
     <div class="column distributor">
       <van-icon name="shop" class="icon" />
       <h2>经销商</h2>
-      <p>这里是经销商的相关信息。</p>
-      <button class="action-button">进入</button>
+      <p>分发商品、管理订单</p>
+      <button class="action-button" @click="loginRoute('distributor-login')">进入</button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import router from '@/router'
+
+const loginRoute = (route: string) => {
+  router.push(`/${route}`)
+}
+
 </script>
 
 <style scoped>

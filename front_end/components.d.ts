@@ -28,5 +28,6 @@ declare module 'vue' {
     VanSubmitBar: typeof import('vant/es')['SubmitBar']
     VanTag: typeof import('vant/es')['Tag']
     VanUploader: typeof import('vant/es')['Uploader']
+    Verification: typeof import('./src/components/common/Verification.vue')['default']
   }
 }
