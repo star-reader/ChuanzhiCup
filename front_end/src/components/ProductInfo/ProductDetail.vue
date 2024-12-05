@@ -60,7 +60,8 @@ const onCheckout = () => {
 
 <style scoped>
 .product-detail-container {
-  min-height: calc(100vh - 50px);
+  /* min-height: calc(100vh - 50px); */
+  height: 140px;
   width: 100%;
   padding: 0;
   background-color: #f9f9f9;

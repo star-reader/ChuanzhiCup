@@ -11,7 +11,7 @@
     <div class="order-list">
       <div class="order-item" v-for="order in orders" :key="order.id">
         <div class="img-area">
-          <img src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg" alt="order_photo" />
+          <img :src="order.pic" alt="order_photo" />
         </div>
         <div class="info-area">
           <div class="name">{{ order.productName }}</div>
@@ -30,41 +30,33 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { showNotify  } from 'vant'
+import axios from 'axios';
 import pubsub from 'pubsub-js'
+import o_orders from '@/config/data/orders';
+import api from '@/config/api/api';
 
 const props = defineProps<{
   pageFrom: string
 }>();
 
-const orders = ref([
-  {
-    id: 1,
-    orderId: '123456',
-    productName: '商品 A',
-    price: 100,
-    time: '2024-01-01 12:00:00',
-    status: 'shipped',
-  },
-  {
-    id: 2,
-    orderId: '789012',
-    productName: '商品 B',
-    price: 150,
-    time: '2024-01-02 14:00:00',
-    status: 'pending',
-  },
-]);
+const orders = ref(o_orders);
 
 const onClickLeft = () => history.back();
-
-
 
 const notifyCustomer = (orderId: number) => {
   pubsub.publish('notifyCustomer', orderId);
   showNotify({ type: 'success', message: `已通知${props.pageFrom === 'distributor' ? '客户' : '商家'}` }); // Show notification
-};
+}
+
+onMounted(() => {
+  axios.get(api.GetOrders)
+  .then(res => {
+    orders.value = res.data;
+  })
+})
+
 </script>
 
 <style scoped>
@@ -79,44 +71,43 @@ const notifyCustomer = (orderId: number) => {
   top: 50px;
   min-height: calc(100vh - 50px);
   padding: 0 20px;
-  background-color: #f9f9f9; /* Light background for the container */
+  background-color: #f9f9f9; 
 }
 
 h2 {
   margin-bottom: 20px;
-  color: #333; /* Dark text color for the heading */
-  font-size: 24px; /* Increased font size for better readability */
+  color: #333;
+  font-size: 24px;
   display: flex;
-  align-items: center; /* Center the icon and text vertically */
+  align-items: center;
 }
 
 .header-icon {
-  font-size: 28px; /* Adjust icon size */
-  color: #007bff; /* Color for the icon */
-  margin-right: 10px; /* Space between icon and text */
+  font-size: 28px;
+  color: #007bff;
+  margin-right: 10px;
 }
-
 .order-item {
   display: flex;
   padding: 10px;
   border-bottom: 1px solid #e0e0e0;
   align-items: center;
-  justify-content: space-between; /* Align items to space between */
+  justify-content: space-between;
 }
 
 .img-area {
-  flex: 0 0 80px; /* Fixed width for image area */
+  flex: 0 0 80px;
   margin-right: 10px;
 }
 
 .img-area img {
   width: 100%;
   height: auto;
-  border-radius: 5px; /* Rounded corners for the image */
+  border-radius: 5px;
 }
 
 .info-area {
-  flex: 1; /* Take the remaining space */
+  flex: 1;
 }
 
 .name {
@@ -126,14 +117,14 @@ h2 {
 }
 
 .price {
-  color: #ff6034; /* Price color */
+  color: #ff6034;
   font-size: 14px;
   margin-bottom: 5px;
 }
 
 .time {
   font-size: 12px;
-  color: #999; /* Lighter color for time */
+  color: #999;
 }
 
 .status {
@@ -142,11 +133,11 @@ h2 {
 }
 
 .shipped {
-  color: green; /* Green color for shipped status */
+  color: green;
 }
 
 .notify-button {
-  margin-top: 10px; /* Space above the button */
-  align-self: flex-end; /* Align button to the bottom */
+  margin-top: 10px;
+  align-self: flex-end;
 }
 </style>
