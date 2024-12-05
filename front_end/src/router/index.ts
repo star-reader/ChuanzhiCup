@@ -50,6 +50,11 @@ const routes = [
     path: '/customer-index',
     name: 'CustomerIndex',
     component: () => import('../components/Customer/CustomerIndex.vue'),
+  },
+  {
+    path: '/statistics',
+    name: 'Statistics',
+    component: () => import('../components/Statistics/StatisticsView.vue'),
   }
 ]
 const router = createRouter({
