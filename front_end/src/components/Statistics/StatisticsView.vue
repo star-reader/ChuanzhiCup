@@ -161,7 +161,6 @@ onMounted(() => {
 
   charts = [salesChart, rankChart, orderChart];
 
-  // 监听窗口大小变化，重绘图表
   window.addEventListener('resize', handleResize);
 });
 
@@ -172,7 +171,6 @@ const handleResize = () => {
 const onClickLeft = () => history.back();
 
 onUnmounted(() => {
-  // 清理图表实例和事件监听
   charts.forEach(chart => chart.dispose());
   window.removeEventListener('resize', handleResize);
 });

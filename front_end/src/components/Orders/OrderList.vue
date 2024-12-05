@@ -45,7 +45,7 @@ const orders = ref([
     productName: '商品 A',
     price: 100,
     time: '2024-01-01 12:00:00',
-    status: 'shipped', // Example status
+    status: 'shipped',
   },
   {
     id: 2,
@@ -53,7 +53,7 @@ const orders = ref([
     productName: '商品 B',
     price: 150,
     time: '2024-01-02 14:00:00',
-    status: 'pending', // Example status
+    status: 'pending',
   },
 ]);
 

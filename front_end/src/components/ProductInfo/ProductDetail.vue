@@ -46,17 +46,15 @@ const props = defineProps<{
   item: Items;
 }>();
 
-const totalPrice = ref(0); // Initialize total price
+const totalPrice = ref(0);
 
 const addToCart = () => {
-  // Logic to add the product to the cart
-  totalPrice.value += props.item.price*100; // Update total price
+  totalPrice.value += props.item.price*100;
   console.log('加入购物车:', props.item.name);
 };
 
 const onCheckout = () => {
-  // Logic for checkout
-  console.log('去结算');
+  
 };
 </script>
 
@@ -65,11 +63,11 @@ const onCheckout = () => {
   min-height: calc(100vh - 50px);
   width: 100%;
   padding: 0;
-  background-color: #f9f9f9; /* Light background for the container */
+  background-color: #f9f9f9;
 }
 
 .product-card {
-  width: 100%; /* Full width for mobile */
-  max-width: 400px; /* Maximum width for larger screens */
+  width: 100%;
+  max-width: 400px;
 }
 </style> 

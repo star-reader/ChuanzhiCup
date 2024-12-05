@@ -53,11 +53,11 @@ const deleteProduct = () => {
   min-height: 100vh;
   width: 100%;
   padding: 0;
-  background-color: #f9f9f9; /* Light background for the container */
+  background-color: #f9f9f9;
 }
 
 .product-card {
-  width: 100%; /* Full width for mobile */
-  max-width: 400px; /* Maximum width for larger screens */
+  width: 100%;
+  max-width: 400px;
 }
 </style> 
