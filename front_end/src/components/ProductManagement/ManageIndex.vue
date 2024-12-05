@@ -31,6 +31,13 @@
         :desc="'点击管理现有订单'"
         :thumb="OrderManage"
       />
+      <van-card
+        class="product-item"
+        @click="statsatic"
+        :title="'数据统计'"
+        :desc="'点击查看数据统计'"
+        :thumb="Stats"
+      />
     </div>
 </template>
   
@@ -38,6 +45,7 @@
 import FoodAdd from '@/assets/imgs/food-add.png';
 import FoodManage from '@/assets/imgs/food-manage.png';
 import OrderManage from '@/assets/imgs/order-manage.png';
+import Stats from '@/assets/imgs/sta.png';
 import router from '@/router';
   
 const addProduct = () => router.push('/product-form')
@@ -45,6 +53,8 @@ const addProduct = () => router.push('/product-form')
 const manageProducts = () => router.push('/manage-product')
   
 const manageOrders = () => router.push('/order-list')
+
+const statsatic = () => router.push('/statistics')
   
 </script>
   

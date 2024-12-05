@@ -115,7 +115,7 @@ onMounted(() => {
     },
     yAxis: {
       type: 'category',
-      data: ['商品A', '商品B', '商品C', '商品D', '商品E']
+      data: ['新鲜番茄', '特色蔬菜', '阳江胡萝卜', '甜橙', '芒果']
     },
     series: [{
       type: 'bar',
