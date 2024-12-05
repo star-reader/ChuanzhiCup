@@ -34,12 +34,12 @@ const routes = [
   {
     path: '/product-list',
     name: 'ProductList',
-    component: () => import('../views/ProductManagementView.vue'),
+    component: () => import('../components/ProductInfo/ProductList.vue'),
   },
   {
     path: '/manage-product',
     name: 'ManageProduct',
-    component: () => import('../components/ProductManagement/ManageProduct.vue'),
+    component: () => import('../components/ProductInfo/ProductList.vue'),
   },
   {
     path: '/order-list',
@@ -55,6 +55,10 @@ const routes = [
     path: '/statistics',
     name: 'Statistics',
     component: () => import('../components/Statistics/StatisticsView.vue'),
+  },
+  {
+    path: '/',
+    redirect: '/login'
   }
 ]
 const router = createRouter({

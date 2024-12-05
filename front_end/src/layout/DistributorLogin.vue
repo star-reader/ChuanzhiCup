@@ -12,6 +12,10 @@
 </template>
 
 <script lang="ts" setup>
+import api from '@/config/api/api';
+import router from '@/router';
+import axios from 'axios';
+import { showNotify } from 'vant';
 import { onMounted, ref } from 'vue';
 
 const authCode = ref('');
@@ -20,9 +24,25 @@ const code = ref('');
 let realCode = ref('')
 
 const handleLogin = () => {
-  // 登录逻辑
-  console.log('登录:', authCode.value);
-}
+  if (code.value !== realCode.value) {
+    refreshCode()
+    return showNotify({
+      message: '验证码错误',
+      type: 'danger'
+    })
+  }
+  // for test
+  router.push('/customer-index')
+  axios.post(api.DistributorLogin,{authCode}).then(res => {
+    localStorage.setItem('token', res.data.token)
+    router.push('/manage-index')
+  }).catch(err => {
+    // showNotify({
+    //   message: err.response.data.message,
+    //   type: 'danger'
+    // })
+  })
+};
 
 const refreshCode = () => {
     realCode.value = "";

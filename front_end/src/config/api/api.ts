@@ -1,0 +1,15 @@
+export default {
+    'DistributorLogin': 'http://localhost:8080/login?role=distributor',
+    'CustomerLogin': 'http://localhost:8080/login?role=customer',
+    'Register': 'http://localhost:8080/register',
+    'GetProducts': 'http://localhost:8080/products',
+    'GetOrders': 'http://localhost:8080/orders',
+    'GetCustomers': 'http://localhost:8080/customers',
+    'GetStatistics': 'http://localhost:8080/statistics',
+    'GetNotifications': 'http://localhost:8080/notifications',
+    'GetMessages': 'http://localhost:8080/messages',
+    'GetNotificationsByDistributor': 'http://localhost:8080/notifications?role=distributor',
+    'GetMessagesByDistributor': 'http://localhost:8080/messages?role=distributor',
+    'GetNotificationsByCustomer': 'http://localhost:8080/notifications?role=customer',
+    'GetMessagesByCustomer': 'http://localhost:8080/messages?role=customer',
+}

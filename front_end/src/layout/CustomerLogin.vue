@@ -9,14 +9,17 @@
         </template>
     </van-field>
     <van-button class="login-button" type="primary" @click="handleLogin">登录</van-button>
-    <van-button class="register-button" @click="handleRegister" plain>注册</van-button>
+    <van-button class="register-button" plain>注册</van-button>
    
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
-
+import { onMounted, ref } from 'vue'
+import axios from 'axios'
+import api from '@/config/api/api';
+import { showNotify } from 'vant';
+import router from '@/router';
 const username = ref('');
 const password = ref('');
 const identifyCodes = "1234567890abcdefjhijklinopqrsduvwxyz"
@@ -24,13 +27,26 @@ const code = ref('');
 let realCode = ref('')
 
 const handleLogin = () => {
-  // 登录逻辑
-  console.log('登录:', username.value, password.value);
+  if (code.value !== realCode.value) {
+    refreshCode()
+    return showNotify({
+      message: '验证码错误',
+      type: 'danger'
+    })
+  }
+  // for test
+  router.push('/customer-index')
+  axios.post(api.CustomerLogin,{username, password}).then(res => {
+    localStorage.setItem('token', res.data.token)
+    router.push('/customer-index')
+  }).catch(err => {
+    // showNotify({
+    //   message: err.response.data.message,
+    //   type: 'danger'
+    // })
+  })
 };
 
-const handleRegister = () => {
-  console.log('跳转到注册页面');
-};
 
 const refreshCode = () => {
     realCode.value = "";
