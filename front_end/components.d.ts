@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CauponCard: typeof import('./src/components/common/CauponCard.vue')['default']
     CustomerIndex: typeof import('./src/components/Customer/CustomerIndex.vue')['default']
     ManageIndex: typeof import('./src/components/ProductManagement/ManageIndex.vue')['default']
     ManageItem: typeof import('./src/components/ProductManagement/ManageItem.vue')['default']
@@ -20,6 +21,8 @@ declare module 'vue' {
     VanButton: typeof import('vant/es')['Button']
     VanCard: typeof import('vant/es')['Card']
     VanCellGroup: typeof import('vant/es')['CellGroup']
+    VanCouponCell: typeof import('vant/es')['CouponCell']
+    VanCouponList: typeof import('vant/es')['CouponList']
     VanDatePicker: typeof import('vant/es')['DatePicker']
     VanField: typeof import('vant/es')['Field']
     VanForm: typeof import('vant/es')['Form']

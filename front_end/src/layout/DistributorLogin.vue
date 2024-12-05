@@ -32,7 +32,7 @@ const handleLogin = () => {
     })
   }
   // for test
-  router.push('/customer-index')
+  router.push('/manage-index')
   axios.post(api.DistributorLogin,{authCode}).then(res => {
     localStorage.setItem('token', res.data.token)
     router.push('/manage-index')

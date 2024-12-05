@@ -72,6 +72,8 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import { showToast } from 'vant';
+import router from '@/router';
 
 const name = ref('');
 const tags = ref('');
@@ -95,14 +97,8 @@ const uploadFile = (file) => {
 };
 
 const onSubmit = () => {
-  console.log({
-    name: name.value,
-    tags: tags.value,
-    price: price.value,
-    description: description.value,
-    period: period.value,
-    image: image.value,
-  });
+  showToast({'type': 'success', 'message': '提交成功'})
+  router.push('/manage-index')
 };
 
 const sendItemToServer = async (item) => {

@@ -3,6 +3,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
+    redirect: '/login'
+  },
+  {
+    path: '/',
     name: 'home',
     component: () => import('../views/HomeView.vue'),
   },
@@ -39,7 +43,7 @@ const routes = [
   {
     path: '/manage-product',
     name: 'ManageProduct',
-    component: () => import('../components/ProductInfo/ProductList.vue'),
+    component: () => import('../components/ProductManagement/ManageProduct.vue'),
   },
   {
     path: '/order-list',
@@ -55,10 +59,6 @@ const routes = [
     path: '/statistics',
     name: 'Statistics',
     component: () => import('../components/Statistics/StatisticsView.vue'),
-  },
-  {
-    path: '/',
-    redirect: '/login'
   }
 ]
 const router = createRouter({
